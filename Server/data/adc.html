@@ -1,0 +1,48 @@
+<html>
+<head>
+<style>
+html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center; }
+</style>
+</head>
+<body>
+<h2>ADC</h2>
+
+
+<p>ADC1&nbsp;&nbsp;&nbsp;<span type="text" readonly name="text_output1" id="output1"></span></p>
+<p>ADC2&nbsp;&nbsp;&nbsp;<span type="text" readonly name="text_output2" id="output2"></span></p>
+<p>ADC3&nbsp;&nbsp;&nbsp;<span type="text" readonly name="text_output3" id="output3"></span></p>
+<p>ADC4&nbsp;&nbsp;&nbsp;<span type="text" readonly name="text_output4" id="output4"></span></p>
+<a href = '/web_server'>Back</a>
+
+</body>
+<script>
+setInterval(function() 
+{
+  getData();
+}, 300); 
+
+function getData()
+{
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+
+      let counter = 0;
+      let string = this.responseText;
+      document.getElementById("output1").innerHTML = string.slice(0,string.indexOf("."));
+      string = string.slice(string.indexOf(".")+1,string.length);
+      document.getElementById("output2").innerHTML = string.slice(0,string.indexOf("."));
+      string = string.slice(string.indexOf(".")+1,string.length);
+      document.getElementById("output3").innerHTML = string.slice(0,string.indexOf("."));
+      string = string.slice(string.indexOf(".")+1,string.length);
+      document.getElementById("output4").innerHTML = string;
+  }
+  };
+    xhr.open('GET', '/update_adc', true);
+    xhr.send();
+}
+
+
+</script>
+</html>
+   

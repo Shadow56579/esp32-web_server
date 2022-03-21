@@ -1,0 +1,78 @@
+<head>
+<style>
+html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}
+    .button { background-color: #4CAF50; border: none; color: rgb(255, 255, 255); padding: 16px 40px;
+    text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}
+.button3 {background-color: #66FFCC;}
+.slidecontainer {
+  width: 100%;
+}
+</style></head>
+
+
+<body>
+    <h2>Esp32 Web Server</h2>
+        <p>GPIO 22</p>
+        <p><button id="gpio22" class="button">ON</button></p>
+        <p>GPIO 23</p>
+        <p><a><button id="gpio23" class="button">ON</button></a></p>
+        <p>GPIO 21</p>
+        <p><button id="gpio19" class="button">ON</button></p>
+        <p>PWM</p>
+        <form id="slidecontainer">
+            <input type="range" min="1" max="100" value="50" name="range_input">
+        </form>
+        <button id="send_button" class="button">Send</button>
+        
+    <br><br>
+    <a href = '/web_server'>Back</a>
+    <script>
+        
+        send_button.addEventListener("mousedown",send_form);
+
+
+        function send_form()
+        {
+            let form = document.getElementById('slidecontainer');
+            form.action = '/form';
+            form.method = 'GET';    
+            form.submit();
+        }
+     /*var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Отображение значения ползунка по умолчанию
+
+    // Обновите текущее значение ползунка (при каждом перетаскивании маркера ползунка)
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    }   */
+
+        gpio23.addEventListener("mousedown",gpio23_func);
+        gpio22.addEventListener("mousedown",gpio22_func);
+        gpio19.addEventListener("mousedown",gpio19_func);
+
+        function gpio23_func()
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/23', true);
+            xhr.send();
+        }
+
+        function gpio22_func()
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/22', true);
+            xhr.send();
+        }
+
+        function gpio19_func()
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/19', true);
+        
+            xhr.send();
+        }
+
+
+    </script>
+</body>
